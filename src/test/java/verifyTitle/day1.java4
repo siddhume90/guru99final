@@ -1,0 +1,100 @@
+package verifyTitle;
+
+import org.testng.annotations.Test;
+
+import org.testng.annotations.BeforeMethod;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.AfterTest;
+import verifyTitle.pageObjectModel;
+
+public class day1 {
+
+	WebDriver driver;
+	String baseUrl = "http://live.demoguru99.com/index.php/";
+
+	@Test
+	public void test() {
+
+		pageObjectModel p = new pageObjectModel(driver);
+
+		// verify title
+		String title = p.verifyTitle();
+		String expectedTitle = "THIS IS DEMO SITE FOR   ";
+
+		System.out.println(title);
+		Assert.assertEquals(title, expectedTitle);
+		// click mobile
+		p.clickMobile();
+
+		// verify Mobile Title
+		String mtitle = p.getTitleMobile();
+		String expectedMTitle = "MOBILE";
+		System.out.println(mtitle);
+		Assert.assertEquals(mtitle, expectedMTitle);
+
+		// show sorting optins
+		p.showOptions();
+		// sort by Name
+		p.clickName();
+		
+		//
+
+		List<WebElement> list = driver.findElements(By.xpath("//li[@class='item last']//h2"));
+		System.out.println(list.size());
+ 
+		List<String> stringList;
+
+		for (int i = 0; i < list.size(); i++) {
+			
+						System.out.println("********" + list.get(i).getText());
+						stringList.add(list.get(i).getText());
+		}
+		
+	
+		List<String> expectedStringList;
+		
+		
+
+//		String expectedValue = "IPHONE";
+//		String lastExpectedValue = "SONY XPERIA";
+//
+//		Assert.assertEquals(list.get(0).getText(), expectedValue);
+//		Assert.assertEquals(list.get(2).getText(), lastExpectedValue);
+
+	}
+	
+	
+
+	@BeforeMethod
+	public void beforeMethod() {
+
+		System.setProperty("webdriver.gecko.driver", "C:\\Users\\Sehaj Singh\\Desktop\\Selenium\\geckodriver.exe");
+		driver = new FirefoxDriver();
+		driver.get(baseUrl);
+
+	}
+
+	@AfterMethod
+	public void afterMethod() {
+	}
+
+	@BeforeTest
+	public void beforeTest() {
+	}
+
+	@AfterTest
+	public void afterTest() {
+		driver.close();
+	}
+
+}

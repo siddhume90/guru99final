@@ -1,0 +1,9 @@
+
+<suite name="Regression TestSuite">
+	<test name="Application Test">
+		<classes>
+		<class name="verifyTitle.day5part2Test" />
+			
+		</classes>
+	</test>
+</suite>
